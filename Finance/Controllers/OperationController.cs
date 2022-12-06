@@ -53,10 +53,6 @@ namespace Finance.Controllers
             {
                 return NotFound();
             }
-            //catch(System.Exception ex)
-            //{
-            //    return NotFound();
-            //}
         }
 
         [HttpGet("{dataBeginnigStr}/{dataEndStr}")]
