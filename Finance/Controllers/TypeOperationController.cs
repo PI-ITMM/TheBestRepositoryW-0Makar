@@ -11,7 +11,19 @@ namespace Finance.Controllers
     public class TypeOperationController : ControllerBase
     {
         private readonly ITypeOperationService _service;
+        public async Task<ActionResult<TypeOperation>> DeleteAsync(int id)
+        {
+            try
+            {
+                await _service.DeleteAsync(id);
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
 
+            return Ok();
+        }
         public TypeOperationController(ITypeOperationService service)
         {
             _service = service;

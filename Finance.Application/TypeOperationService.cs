@@ -13,6 +13,18 @@ namespace Finance.Application
         {
             _repository = repository;
         }
+        public async Task DeleteAsync(int id)
+        {
+            var typeOperation = await _repository.TypeOperation.GetByIdAsync(id);
+
+            if (typeOperation == null)
+            {
+                throw new NotFoundException();
+            }
+
+            _repository.TypeOperation.Delete(typeOperation);
+            await _repository.SaveChangesAsync();
+        }
 
         public async Task CreateAsync(TypeOperation operation)
         {

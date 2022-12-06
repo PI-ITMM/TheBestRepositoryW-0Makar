@@ -18,7 +18,10 @@ namespace Finance.Repository
             _db = context;
             _mapper = mapper;
         }
-
+        public void Delete(ViewModel.TypeOperation operation)
+        {
+            _db.Entry(_mapper.Map<TypeOperation>(operation)).State = EntityState.Deleted;
+        }
         public async Task CreateAsync(ViewModel.TypeOperation operation)
         {
             await _db.TypeOperations.AddAsync(_mapper.Map<TypeOperation>(operation));
