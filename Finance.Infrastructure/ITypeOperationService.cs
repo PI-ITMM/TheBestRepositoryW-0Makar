@@ -9,5 +9,6 @@ namespace Finance.Infrastructure
         Task CreateAsync(TypeOperation operation);
         Task<IEnumerable<TypeOperation>> GetAsync();
         Task<IEnumerable<TypeOperation>> GetByTypeAsync(bool type);
+        Task EditAsync(TypeOperation operation);
     }
 }

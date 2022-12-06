@@ -16,7 +16,18 @@ namespace Finance.Application
         {
             _repository = repository;
         }
+        public async Task EditAsync(FinanceOperation operation)
+        {
+            var financeOperation = await _repository.FinanceOperation.GetByIdAsync(operation.FinanceOperationId);
 
+            if (financeOperation == null)
+            {
+                throw new NotFoundException();
+            }
+
+            _repository.FinanceOperation.Edit(financeOperation, operation);
+            await _repository.SaveChangesAsync();
+        }
         public async Task CreateAsync(FinanceOperation operation)
         {
             await _repository.FinanceOperation.CreateAsync(operation);
