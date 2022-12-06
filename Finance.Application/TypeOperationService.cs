@@ -26,6 +26,19 @@ namespace Finance.Application
             await _repository.SaveChangesAsync();
         }
 
+        public async Task EditAsync(TypeOperation newOperation)
+        {
+            var oldTypeOperation = await _repository.TypeOperation.GetByIdAsync(newOperation.TypeOperationId);
+
+            if (oldTypeOperation == null)
+            {
+                throw new NotFoundException();
+            }
+
+            _repository.TypeOperation.Edit(oldTypeOperation, newOperation);
+            await _repository.SaveChangesAsync();
+        }
+
         public async Task CreateAsync(TypeOperation operation)
         {
             await _repository.TypeOperation.CreateAsync(operation);

@@ -12,7 +12,6 @@ namespace Finance.Repository
     {
         private readonly FinanceContext _db;
         private readonly IMapper _mapper;
-
         public TypeOperationRepository(FinanceContext context, IMapper mapper)
         {
             _db = context;
@@ -21,6 +20,10 @@ namespace Finance.Repository
         public void Delete(ViewModel.TypeOperation operation)
         {
             _db.Entry(_mapper.Map<TypeOperation>(operation)).State = EntityState.Deleted;
+        }
+         public void Edit(ViewModel.TypeOperation operationWithOldData, ViewModel.TypeOperation operationWithNewData)
+        {
+            _db.Entry(_mapper.Map<TypeOperation>(operationWithOldData)).CurrentValues.SetValues(_mapper.Map<TypeOperation>(operationWithNewData));
         }
         public async Task CreateAsync(ViewModel.TypeOperation operation)
         {
@@ -32,14 +35,12 @@ namespace Finance.Repository
 
             return _mapper.Map<IEnumerable<ViewModel.TypeOperation>>(listOperation);
         }
-
         public async Task<ViewModel.TypeOperation> GetByIdAsync(int id)
         {
             var operation = await _db.TypeOperations.FirstOrDefaultAsync(x => x.TypeOperationId == id);
 
             return _mapper.Map<ViewModel.TypeOperation>(operation);
         }
-
         public async Task<IEnumerable<ViewModel.TypeOperation>> GetByTypeAsync(bool type)
         {
             var listOperation = await _db.TypeOperations.Where(x => x.IsIncome == type).ToListAsync();
@@ -47,5 +48,4 @@ namespace Finance.Repository
             return _mapper.Map<IEnumerable<ViewModel.TypeOperation>>(listOperation);
         }
     }
-
 }

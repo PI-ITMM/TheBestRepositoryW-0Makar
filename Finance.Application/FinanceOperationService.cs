@@ -25,7 +25,7 @@ namespace Finance.Application
         public async Task<IEnumerable<FinanceOperation>> GetAsync()
         {
             return await _repository.FinanceOperation.GetAsync();
-        }
+        }    
 
         public async Task<IEnumerable<object>> GetByDataAsync(string dataStr)
         {
@@ -104,6 +104,18 @@ namespace Finance.Application
             result.Add(listExpence);
 
             return result;
+        }
+        public async Task EditAsync(FinanceOperation operation)
+          {
+            var financeOperation = await _repository.FinanceOperation.GetByIdAsync(operation.FinanceOperationId);
+
+            if (financeOperation == null)
+            {
+                throw new NotFoundException();
+            }
+
+            _repository.FinanceOperation.Edit(financeOperation, operation);
+            await _repository.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)
         {
