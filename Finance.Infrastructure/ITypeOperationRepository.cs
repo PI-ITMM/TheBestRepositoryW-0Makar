@@ -11,5 +11,6 @@ namespace Finance.Infrastructure
         Task<IEnumerable<TypeOperation>> GetByTypeAsync(bool type);
         Task<TypeOperation> GetByIdAsync(int id);
         void Delete(TypeOperation operation);
+        void Edit(TypeOperation operationWithOldData, TypeOperation operationWithNewData);
     }
 }

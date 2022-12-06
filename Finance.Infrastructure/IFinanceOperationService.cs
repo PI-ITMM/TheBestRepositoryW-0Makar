@@ -11,5 +11,6 @@ namespace Finance.Infrastructure
         Task<IEnumerable<object>> GetByDataAsync(string data);
         Task<IEnumerable<object>> GetByPeriodAsync(string data1, string data2);
         Task DeleteAsync(int id);
+        Task EditAsync(FinanceOperation operation);
     }
 }

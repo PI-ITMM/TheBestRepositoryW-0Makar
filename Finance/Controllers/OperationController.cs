@@ -85,6 +85,25 @@ namespace Finance.Controllers
                 return NotFound();
             }
         }
+         [HttpPut]
+        public async Task<ActionResult<FinanceOperation>> PutAsync(FinanceOperation operation)
+        {
+            if (operation == null)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _service.EditAsync(operation);
+            }
+            catch(NotFoundException)
+            {
+                return NotFound();
+            }
+
+            return Ok(operation);
+        }
 
     }
 }

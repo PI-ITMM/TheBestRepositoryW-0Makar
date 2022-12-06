@@ -13,5 +13,6 @@ namespace Finance.Infrastructure
         Task<IEnumerable<FinanceOperation>> GetByDataAsync(DateTime data, bool type);
         Task<IEnumerable<FinanceOperation>> GetByPeriodAsync(DateTime data1, DateTime data2, bool type);
         void Delete(FinanceOperation operation);
+        void Edit(FinanceOperation operationWithOldData, FinanceOperation operationWithNewData);
     }
 }
