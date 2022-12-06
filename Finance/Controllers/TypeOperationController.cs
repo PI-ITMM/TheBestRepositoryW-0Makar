@@ -1,6 +1,7 @@
 ﻿using Finance.Infrastructure;
 using Finance.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Finance.Controllers
@@ -14,7 +15,26 @@ namespace Finance.Controllers
         public TypeOperationController(ITypeOperationService service)
         {
             _service = service;
-        }        
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TypeOperation>>> GetAsync()
+        {
+            return new ObjectResult(await _service.GetAsync());
+        }
+
+        [HttpGet("{type}")]
+        public async Task<ActionResult<TypeOperation>> GetAsync(bool type)
+        {
+            var operation = await _service.GetByTypeAsync(type);
+
+            if (operation == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(operation);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<TypeOperation>> PostAsync(TypeOperation operation)
