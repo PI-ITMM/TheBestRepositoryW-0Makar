@@ -65,18 +65,7 @@ namespace Finance.Application
 
             return result;
         }
-        public async Task DeleteAsync(int id)
-        {
-            var financeOperation = await _repository.FinanceOperation.GetByIdAsync(id);
-
-            if (financeOperation == null)
-            {
-                throw new NotFoundException();
-            }
-
-            _repository.FinanceOperation.Delete(financeOperation);
-            await _repository.SaveChangesAsync();
-        }
+        
         public async Task<IEnumerable<object>> GetByPeriodAsync(string dataBeginnigStr, string dataEndStr)
         {
             var isData1 = DateTime.TryParse(dataBeginnigStr, out var data1);
@@ -115,6 +104,18 @@ namespace Finance.Application
             result.Add(listExpence);
 
             return result;
+        }
+        public async Task DeleteAsync(int id)
+        {
+            var financeOperation = await _repository.FinanceOperation.GetByIdAsync(id);
+
+            if (financeOperation == null)
+            {
+                throw new NotFoundException();
+            }
+
+            _repository.FinanceOperation.Delete(financeOperation);
+            await _repository.SaveChangesAsync();
         }
     }
 }
