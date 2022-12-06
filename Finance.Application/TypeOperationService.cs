@@ -25,6 +25,7 @@ namespace Finance.Application
             _repository.TypeOperation.Delete(typeOperation);
             await _repository.SaveChangesAsync();
         }
+
         public async Task EditAsync(TypeOperation newOperation)
         {
             var oldTypeOperation = await _repository.TypeOperation.GetByIdAsync(newOperation.TypeOperationId);

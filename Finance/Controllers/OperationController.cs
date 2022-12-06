@@ -101,7 +101,6 @@ namespace Finance.Controllers
             {
                 return NotFound();
             }
-
             return Ok(operation);
         }
 

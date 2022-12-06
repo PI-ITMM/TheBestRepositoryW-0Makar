@@ -13,7 +13,6 @@ namespace Finance.Repository
     {
         private readonly FinanceContext _db;
         private readonly IMapper _mapper;
-
         public FinanceOperationRepository(FinanceContext context, IMapper mapper)
         {
             _db = context;
@@ -37,12 +36,10 @@ namespace Finance.Repository
 
             return _mapper.Map<IEnumerable<ViewModel.FinanceOperation>>(listOperation);
         }
-
         public async Task<IEnumerable<ViewModel.FinanceOperation>> GetByDataAsync(DateTime date, bool type)
         {
             var selectedOperation = new List<FinanceOperation>();
             var listOperation = await _db.Operations.Include(p => p.TypeOperation).Where(x => x.TypeOperation.IsIncome == type).ToListAsync();
-
             Parallel.ForEach(listOperation, oper =>
             {
                 if (DateTime.Parse(oper.Data) == date)
@@ -50,17 +47,14 @@ namespace Finance.Repository
                     selectedOperation.Add(oper);
                 }
             });
-
             return _mapper.Map<IEnumerable<ViewModel.FinanceOperation>>(selectedOperation);
         }
-
         public async Task<ViewModel.FinanceOperation> GetByIdAsync(int id)
         {
             var operation = await _db.Operations.FirstOrDefaultAsync(x => x.FinanceOperationId == id);
 
             return _mapper.Map<ViewModel.FinanceOperation>(operation);
         }
-
         public async Task<IEnumerable<ViewModel.FinanceOperation>> GetByPeriodAsync(DateTime date1, DateTime date2, bool type)
         {
             var selectedOperation = new List<FinanceOperation>();

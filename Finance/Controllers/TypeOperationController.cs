@@ -57,7 +57,6 @@ namespace Finance.Controllers
             }
 
             await _service.CreateAsync(operation);
-
             return Ok(operation);
         }   
         [HttpPut]
