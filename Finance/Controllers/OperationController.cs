@@ -12,7 +12,19 @@ namespace Finance.Controllers
     public class OperationController : ControllerBase
     {
         private readonly IFinanceOperationService _service;
+        public async Task<ActionResult<FinanceOperation>> DeleteAsync(int id)
+        {
+            try
+            {
+                await _service.DeleteAsync(id);
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
 
+            return Ok();
+        }
         public OperationController(IFinanceOperationService service)
         {
             _service = service;
