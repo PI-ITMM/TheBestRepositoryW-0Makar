@@ -12,19 +12,7 @@ namespace Finance.Controllers
     public class OperationController : ControllerBase
     {
         private readonly IFinanceOperationService _service;
-        public async Task<ActionResult<FinanceOperation>> DeleteAsync(int id)
-        {
-            try
-            {
-                await _service.DeleteAsync(id);
-            }
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-
-            return Ok();
-        }
+        
         public OperationController(IFinanceOperationService service)
         {
             _service = service;
@@ -42,6 +30,7 @@ namespace Finance.Controllers
 
             return Ok(operation);
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FinanceOperation>>> GetAsync()
         {
@@ -85,7 +74,8 @@ namespace Finance.Controllers
                 return NotFound();
             }
         }
-         [HttpPut]
+
+        [HttpPut]
         public async Task<ActionResult<FinanceOperation>> PutAsync(FinanceOperation operation)
         {
             if (operation == null)
@@ -104,5 +94,20 @@ namespace Finance.Controllers
             return Ok(operation);
         }
 
-    }
+		[HttpDelete("{id}")]
+		public async Task<ActionResult<FinanceOperation>> DeleteAsync(int id)
+		{
+			try
+			{
+				await _service.DeleteAsync(id);
+			}
+			catch (NotFoundException)
+			{
+				return NotFound();
+			}
+
+			return Ok();
+		}
+
+	}
 }

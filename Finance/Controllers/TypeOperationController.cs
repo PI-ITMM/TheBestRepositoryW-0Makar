@@ -1,4 +1,5 @@
 ﻿using Finance.Infrastructure;
+using Finance.Infrastructure.CustomExceptions;
 using Finance.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,23 +12,12 @@ namespace Finance.Controllers
     public class TypeOperationController : ControllerBase
     {
         private readonly ITypeOperationService _service;
-        public async Task<ActionResult<TypeOperation>> DeleteAsync(int id)
-        {
-            try
-            {
-                await _service.DeleteAsync(id);
-            }
-            catch (NotFoundException)
-            {
-                return NotFound();
-            }
-
-            return Ok();
-        }
+       
         public TypeOperationController(ITypeOperationService service)
         {
             _service = service;
         }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TypeOperation>>> GetAsync()
         {
@@ -59,6 +49,7 @@ namespace Finance.Controllers
             await _service.CreateAsync(operation);
             return Ok(operation);
         }   
+
         [HttpPut]
         public async Task<ActionResult<TypeOperation>> PutAsync(TypeOperation operation)
         {
@@ -78,5 +69,20 @@ namespace Finance.Controllers
 
             return Ok(operation);
         }
-    }
+
+		[HttpDelete("{id}")]
+		public async Task<ActionResult<TypeOperation>> DeleteAsync(int id)
+		{
+			try
+			{
+				await _service.DeleteAsync(id);
+			}
+			catch (NotFoundException)
+			{
+				return NotFound();
+			}
+
+			return Ok();
+		}
+	}
 }
