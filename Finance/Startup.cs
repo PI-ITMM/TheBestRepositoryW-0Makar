@@ -50,6 +50,7 @@ namespace Finance
             {
                 endpoints.MapControllers(); 
             });
-        }
+			app.UseDeveloperExceptionPage();
+		}
     }
 }

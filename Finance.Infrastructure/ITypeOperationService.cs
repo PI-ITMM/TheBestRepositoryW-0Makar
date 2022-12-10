@@ -10,6 +10,6 @@ namespace Finance.Infrastructure
         Task<IEnumerable<TypeOperation>> GetAsync();
         Task<IEnumerable<TypeOperation>> GetByTypeAsync(bool type);
         Task DeleteAsync(int id);
-        void Edit(TypeOperation operationWithOldData, TypeOperation operationWithNewData);
-    }
+		Task EditAsync(TypeOperation operation);
+	}
 }
